@@ -15,7 +15,7 @@ public class HttpCorrelationProvider : ICorrelationProvider
         return _correlationId;
     }
 
-    public void SetCorrelationId(HttpContext httpContext)
+    public string? SetCorrelationId(HttpContext httpContext)
     {
         string? correlationId = httpContext.Request.Headers.TryGetValue(_headerKey, out var values)
                       ? values.First()
@@ -30,5 +30,6 @@ public class HttpCorrelationProvider : ICorrelationProvider
             httpContext.Response.Headers.Add(_headerKey, correlationId);
         }
         _correlationId = correlationId;
+        return _correlationId;
     }
 }

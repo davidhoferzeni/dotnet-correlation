@@ -1,4 +1,4 @@
 public interface ICorrelationProvider {
     string? GetCorrelationId();
-    void SetCorrelationId(HttpContext httpContext);
+    string? SetCorrelationId(HttpContext httpContext);
 }

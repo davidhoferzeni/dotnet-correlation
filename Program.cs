@@ -28,6 +28,7 @@ dbContext.Database.Migrate();
 var app = builder.Build();
 
 app.UseMiddleware<CorrelationIdHeaderMiddleware>();
+app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
