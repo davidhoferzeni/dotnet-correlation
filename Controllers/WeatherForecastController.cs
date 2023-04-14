@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Primitives;
-using Serilog;
+
 
 namespace LoggingApi.Controllers;
 
@@ -9,17 +8,16 @@ namespace LoggingApi.Controllers;
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
-
-
     public const string CorrelationIdHeaderConstant = "x-correlation-id";
     private readonly ILogger<WeatherForecastController> _logger;
-    private readonly WeatherContext _dbContext = new WeatherContext();
+    private readonly WeatherContext _dbContext;
     private readonly ICorrelationProvider _correlationProvider;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger, ICorrelationProvider correlationProvider)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, ICorrelationProvider correlationProvider, WeatherContext dbContext)
     {
         _logger = logger;
         _correlationProvider = correlationProvider;
+        _dbContext = dbContext;
     }
 
     [HttpGet]
@@ -42,7 +40,7 @@ public class WeatherForecastController : ControllerBase
         }
         catch (Exception ex)
         {
-            Log.Error(ex.Message);
+            _logger.LogError(ex.Message);
             return StatusCode(500, "Error occured, please look at the correlation id!");
         }
     }

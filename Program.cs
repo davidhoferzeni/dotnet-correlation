@@ -17,18 +17,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ICorrelationProvider, HttpCorrelationProvider>();
+var connectionString = "Server=RATV-NBHOF21;Initial Catalog=WeatherDb;Persist Security Info=False;trusted_connection=yes;TrustServerCertificate=True;Connection Timeout=30;";
+builder.Services.AddDbContext<WeatherContext>(options =>
+    options.UseSqlServer(connectionString));
 
 builder.Host.UseSerilog();
 
-Log.Logger.Information("Starting db migration");
-
-var dbContext = new WeatherContext();
-dbContext.Database.Migrate();
 
 var app = builder.Build();
 
 app.UseMiddleware<CorrelationIdHeaderMiddleware>();
-app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
