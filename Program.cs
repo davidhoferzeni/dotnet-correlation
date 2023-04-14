@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
-    //.Enrich.WithCorrelationIdHeader()
     .WriteTo.Console(outputTemplate:"[{Timestamp:HH:mm:ss} {Level:u3} {CorrelationId} {RequestId}] {Message:lj}{NewLine}{Exception}")
     .CreateLogger();
 
