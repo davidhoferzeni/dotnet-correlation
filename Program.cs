@@ -15,17 +15,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<ICorrelationProvider, HttpCorrelationProvider>();
 var connectionString = "Server=RATV-NBHOF21;Initial Catalog=WeatherDb;Persist Security Info=False;trusted_connection=yes;TrustServerCertificate=True;Connection Timeout=30;";
 builder.Services.AddDbContext<WeatherContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Host.UseSerilog();
 
-
+builder.Host.UseCorrelationProvider();
 var app = builder.Build();
-
-app.UseMiddleware<CorrelationIdHeaderMiddleware>();
+app.UseRequestCorrealtion();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
