@@ -33,3 +33,19 @@ public class HttpCorrelationProvider : ICorrelationProvider
         return _correlationId;
     }
 }
+
+public static class HttpCorrelationProviderExtensions
+{
+   public static IHostBuilder UseCorrelationProvider(this IHostBuilder builder)
+    {
+        if (builder == null)
+        {
+            throw new ArgumentNullException("builder");
+        }
+        builder.ConfigureServices(delegate (HostBuilderContext _, IServiceCollection collection)
+        {
+            collection.AddScoped<ICorrelationProvider, HttpCorrelationProvider>();;
+        });
+        return builder;
+    }
+}
