@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace LoggingApi.Migrations
+namespace WebApi.Migrations
 {
     /// <inheritdoc />
     public partial class AddingSeeds : Migration

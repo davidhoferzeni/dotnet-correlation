@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace LoggingApi.Migrations
+namespace WebApi.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-
-namespace LoggingApi.Controllers;
+namespace WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -22,10 +21,10 @@ public class WeatherForecastController : ControllerBase
 
     [HttpGet]
 
-    public IEnumerable<string> Get()
+    public IEnumerable<string?>? Get()
     {
         var correlationId = _correlationProvider.GetCorrelationId();
-        return _dbContext.Weathers.TagWith(correlationId ?? "none").Select(w => w.Name);
+        return _dbContext.Weathers?.TagWith(correlationId ?? "none").Select(w => w.Name);
     }
 
     [HttpGet]
@@ -35,7 +34,7 @@ public class WeatherForecastController : ControllerBase
         var correlationId = _correlationProvider.GetCorrelationId();
         try
         {
-            var weather = _dbContext.Weathers.TagWith(correlationId ?? "none").First(w => w.Id == id)?.Name;
+            var weather = _dbContext.Weathers?.TagWith(correlationId ?? "none").First(w => w.Id == id)?.Name;
             return weather != null ? Ok(weather) : NotFound(); ;
         }
         catch (Exception ex)

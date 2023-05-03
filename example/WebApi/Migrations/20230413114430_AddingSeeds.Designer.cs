@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace LoggingApi.Migrations
+namespace WebApi.Migrations
 {
     [DbContext(typeof(WeatherContext))]
-    [Migration("20230413113122_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20230413114430_AddingSeeds")]
+    partial class AddingSeeds
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,23 @@ namespace LoggingApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Weathers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Sunny"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Rainy"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Cloudy"
+                        });
                 });
 #pragma warning restore 612, 618
         }

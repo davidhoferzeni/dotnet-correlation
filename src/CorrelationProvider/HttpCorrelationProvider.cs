@@ -1,3 +1,10 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
+namespace CorreclationProvider;
+
 public class HttpCorrelationProvider : ICorrelationProvider
 {
     private readonly ILogger<HttpCorrelationProvider> _logger;

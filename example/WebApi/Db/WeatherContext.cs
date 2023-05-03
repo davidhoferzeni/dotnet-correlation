@@ -13,12 +13,12 @@ public class WeatherContext : DbContext
         modelBuilder.Entity<Weather>().HasData(new Weather { Id= 3, Name= "Cloudy" });
     }
 
-    public DbSet<Weather> Weathers { get; set; }
+    public DbSet<Weather>? Weathers { get; set; }
 
 }
 
 public class Weather
 {
     public int Id { get; set; }
-    public string Name { get; set; }
+    public string? Name { get; set; }
 }

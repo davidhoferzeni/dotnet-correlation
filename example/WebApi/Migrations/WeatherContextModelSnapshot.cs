@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace LoggingApi.Migrations
+namespace WebApi.Migrations
 {
     [DbContext(typeof(WeatherContext))]
     partial class WeatherContextModelSnapshot : ModelSnapshot
