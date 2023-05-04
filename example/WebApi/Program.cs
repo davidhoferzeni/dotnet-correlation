@@ -15,12 +15,24 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var  corsPolicy = "_AnyOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: corsPolicy,
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                            .WithExposedHeaders("x-correlation-id");
+                      });
+});
+
 var connectionString = "Server=RATV-NBHOF21;Initial Catalog=WeatherDb;Persist Security Info=False;trusted_connection=yes;TrustServerCertificate=True;Connection Timeout=30;";
 builder.Services.AddDbContext<WeatherContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Host.UseSerilog();
-
 builder.Host.UseCorrelationProvider();
 var app = builder.Build();
 app.UseRequestCorrealtion();
@@ -35,6 +47,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseCors(corsPolicy);
 
 app.MapControllers();
 app.Run();
