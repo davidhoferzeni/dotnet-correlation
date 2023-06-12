@@ -10,3 +10,5 @@ https://stackoverflow.com/questions/56068619/should-i-use-request-id-x-request-i
 TODO:
 - Refactor "get correlation id" (replace serilog with middleware?)
 - Add minimal client to show 
+- Plug into "request logging" (not possible without changing scope)
+- Provide EF Core Plugin!
